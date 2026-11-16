@@ -22,9 +22,9 @@ This backlog defines 25 granular daily engineering sprints for autonomous progre
   - Low gross/net hole-by-hole skins tracker with automatic carryovers, validation modal, and zero-sum financial payout ledger.
   - Tests: `test/unit/skins_pot_test.dart`, `test/widget/skins_pot_view_test.dart`.
 
-- [ ] **Sprint 6: Wolf Game Mode Scoring Engine**
-  - 4-player rotational Wolf format tracker: Blind Wolf calls, Lone Wolf scoring, partner pick timers, and point leaderboards.
-  - Tests: `test/unit/wolf_game_test.dart`.
+- [x] **Sprint 6: Wolf Game Mode Scoring Engine**
+  - 4-player rotational Wolf format tracker: Blind Wolf calls, Lone Wolf scoring, partner pick timers, and zero-sum point leaderboards.
+  - Tests: `test/unit/wolf_game_test.dart`, `test/widget/wolf_game_view_test.dart`.
 
 - [ ] **Sprint 7: Club Gapping Matrix & Distance Dispersion Radar**
   - Interactive visual distance gapping table highlighting yardage overlaps or >15-yard gaps between consecutive clubs in the player's 14-club bag.

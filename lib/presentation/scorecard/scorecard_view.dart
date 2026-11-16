@@ -5,6 +5,7 @@ import '../green_reading/green_reading_view.dart';
 import '../handicap_differential/handicap_differential_view.dart';
 import '../skins_pot/skins_pot_view.dart';
 import '../swing_tempo/swing_tempo_view.dart';
+import '../wolf_game/wolf_game_view.dart';
 import 'scorecard_controller.dart';
 import 'widgets/hole_stepper_cockpit.dart';
 import 'widgets/leaderboard_drawer.dart';
@@ -65,6 +66,11 @@ class _ScorecardViewState extends State<ScorecardView> {
   void _openSkinsPot(BuildContext context) {
     Navigator.of(context)
         .push(MaterialPageRoute<void>(builder: (_) => const SkinsPotView()));
+  }
+
+  void _openWolfGame(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute<void>(builder: (_) => const WolfGameView()));
   }
 
   Widget _buildCockpitPane(
@@ -314,6 +320,15 @@ class _ScorecardViewState extends State<ScorecardView> {
                           ),
                           tooltip: 'Tournament Skins Pot',
                           onPressed: () => _openSkinsPot(context),
+                        ),
+                        IconButton(
+                          icon: Icon(
+                            Icons.pets_outlined,
+                            size: 20,
+                            color: colorScheme.tertiary,
+                          ),
+                          tooltip: 'Wolf Game Mode',
+                          onPressed: () => _openWolfGame(context),
                         ),
                         IconButton(
                           icon: Icon(

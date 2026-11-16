@@ -9,6 +9,7 @@ import '../handicap_differential/handicap_differential_view.dart';
 import '../shell/recruiter_debug_drawer.dart';
 import '../skins_pot/skins_pot_view.dart';
 import '../swing_tempo/swing_tempo_view.dart';
+import '../wolf_game/wolf_game_view.dart';
 import 'settings_controller.dart';
 
 class SettingsView extends StatelessWidget {
@@ -271,6 +272,39 @@ class SettingsView extends StatelessWidget {
                         Navigator.of(context).push(
                           MaterialPageRoute<void>(
                             builder: (_) => const SkinsPotView(),
+                          ),
+                        );
+                      },
+                    ),
+                    const Divider(height: 1),
+                    ListTile(
+                      leading: Icon(
+                        Icons.pets_outlined,
+                        color: colorScheme.tertiary,
+                      ),
+                      title: Text(
+                        'Wolf Game Mode (4-Player)',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: colorScheme.onSurface,
+                        ),
+                      ),
+                      subtitle: Text(
+                        'Rotational Wolf honors, Lone Wolf 4x, Blind Wolf 8x & zero-sum ledger',
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                      trailing: const Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 14,
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute<void>(
+                            builder: (_) => const WolfGameView(),
                           ),
                         );
                       },

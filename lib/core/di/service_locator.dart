@@ -16,6 +16,7 @@ import '../../domain/usecases/handicap_differential_usecase.dart';
 import '../../domain/usecases/nassau_calculator_usecase.dart';
 import '../../domain/usecases/skins_pot_usecase.dart';
 import '../../domain/usecases/swing_tempo_usecase.dart';
+import '../../domain/usecases/wolf_game_usecase.dart';
 import '../../presentation/ai_caddie/ai_caddie_controller.dart';
 import '../../presentation/clubhouse_analytics/clubhouse_controller.dart';
 import '../../presentation/flight_setup/flight_setup_controller.dart';
@@ -26,6 +27,7 @@ import '../../presentation/scorecard/scorecard_controller.dart';
 import '../../presentation/settings/settings_controller.dart';
 import '../../presentation/skins_pot/skins_pot_controller.dart';
 import '../../presentation/swing_tempo/swing_tempo_controller.dart';
+import '../../presentation/wolf_game/wolf_game_controller.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -70,6 +72,7 @@ Future<void> setupServiceLocator({SharedPreferences? mockPrefs}) async {
     HandicapDifferentialUseCase(),
   );
   sl.registerSingleton<SkinsPotUseCase>(SkinsPotUseCase());
+  sl.registerSingleton<WolfGameUseCase>(WolfGameUseCase());
 
   // Controllers
   sl.registerSingleton<ThemeController>(
@@ -133,6 +136,10 @@ Future<void> setupServiceLocator({SharedPreferences? mockPrefs}) async {
 
   sl.registerSingleton<SkinsPotController>(
     SkinsPotController(sl<SkinsPotUseCase>(), sl<ScorecardController>()),
+  );
+
+  sl.registerSingleton<WolfGameController>(
+    WolfGameController(sl<WolfGameUseCase>(), sl<ScorecardController>()),
   );
 
   sl.registerSingleton<SettingsController>(

@@ -136,6 +136,7 @@ void main() {
       await tester.pump();
 
       expect(find.byType(SnackBar), findsOneWidget);
+      await tester.pumpAndSettle();
     });
   });
 }

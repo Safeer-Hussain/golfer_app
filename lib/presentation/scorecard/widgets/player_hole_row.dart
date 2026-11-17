@@ -193,19 +193,19 @@ class PlayerHoleRow extends StatelessWidget {
                     icon: const Icon(Icons.remove, size: 16),
                     style: IconButton.styleFrom(
                       padding: EdgeInsets.zero,
-                      minimumSize: const Size(34, 34),
+                      minimumSize: const Size(32, 32),
                       backgroundColor: colorScheme.surfaceContainerHighest,
                     ),
                   ),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 4),
                   _buildScoreSymbol(context, score.strokes, hole.par),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 4),
                   IconButton.filledTonal(
                     onPressed: () => onStrokesChanged(1),
                     icon: const Icon(Icons.add, size: 16),
                     style: IconButton.styleFrom(
                       padding: EdgeInsets.zero,
-                      minimumSize: const Size(34, 34),
+                      minimumSize: const Size(32, 32),
                       backgroundColor: colorScheme.surfaceContainerHighest,
                     ),
                   ),
@@ -223,14 +223,14 @@ class PlayerHoleRow extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.remove_circle_outline, size: 20),
+                    icon: const Icon(Icons.remove_circle_outline, size: 18),
                     onPressed: () => onPuttsChanged(-1),
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),
                     color: colorScheme.onSurfaceVariant,
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: Text(
                       '${score.putts}',
                       style: TextStyle(
@@ -241,7 +241,7 @@ class PlayerHoleRow extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.add_circle_outline, size: 20),
+                    icon: const Icon(Icons.add_circle_outline, size: 18),
                     onPressed: () => onPuttsChanged(1),
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),

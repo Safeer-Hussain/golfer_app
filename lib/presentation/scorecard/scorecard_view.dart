@@ -279,92 +279,100 @@ class _ScorecardViewState extends State<ScorecardView> {
                           color: colorScheme.onSurface,
                         ),
                       ),
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: Icon(
-                            Icons.music_note_rounded,
-                            size: 20,
-                            color: colorScheme.primary,
-                          ),
-                          tooltip: 'Swing Tempo Metronome',
-                          onPressed: () => _openSwingTempo(context),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                Icons.music_note_rounded,
+                                size: 20,
+                                color: colorScheme.primary,
+                              ),
+                              tooltip: 'Swing Tempo Metronome',
+                              onPressed: () => _openSwingTempo(context),
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                Icons.speed_rounded,
+                                size: 20,
+                                color: colorScheme.tertiary,
+                              ),
+                              tooltip: 'Green Reading & Stimpmeter',
+                              onPressed: () => _openGreenReading(context),
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                Icons.handshake_outlined,
+                                size: 20,
+                                color: colorScheme.secondary,
+                              ),
+                              tooltip: 'Nassau Side-Bets',
+                              onPressed: () =>
+                                  _openNassauModal(context, controller),
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                Icons.calculate_outlined,
+                                size: 20,
+                                color: colorScheme.primary,
+                              ),
+                              tooltip: 'WHS Differential & ESC',
+                              onPressed: () =>
+                                  _openHandicapDifferential(context),
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                Icons.monetization_on_outlined,
+                                size: 20,
+                                color: colorScheme.secondary,
+                              ),
+                              tooltip: 'Tournament Skins Pot',
+                              onPressed: () => _openSkinsPot(context),
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                Icons.pets_outlined,
+                                size: 20,
+                                color: colorScheme.tertiary,
+                              ),
+                              tooltip: 'Wolf Game Mode',
+                              onPressed: () => _openWolfGame(context),
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                Icons.auto_graph_rounded,
+                                size: 20,
+                                color: colorScheme.primary,
+                              ),
+                              tooltip: 'Club Gapping & Dispersion Radar',
+                              onPressed: () => _openClubGapping(context),
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                Icons.share_outlined,
+                                size: 20,
+                                color: colorScheme.onSurfaceVariant,
+                              ),
+                              tooltip: 'Share Scorecard',
+                              onPressed: () =>
+                                  _openShareSheet(context, controller),
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                Icons.leaderboard_outlined,
+                                size: 20,
+                                color: colorScheme.primary,
+                              ),
+                              tooltip: 'Live Leaderboard',
+                              onPressed: () =>
+                                  _scaffoldKey.currentState?.openEndDrawer(),
+                            ),
+                          ],
                         ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.speed_rounded,
-                            size: 20,
-                            color: colorScheme.tertiary,
-                          ),
-                          tooltip: 'Green Reading & Stimpmeter',
-                          onPressed: () => _openGreenReading(context),
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.handshake_outlined,
-                            size: 20,
-                            color: colorScheme.secondary,
-                          ),
-                          tooltip: 'Nassau Side-Bets',
-                          onPressed: () =>
-                              _openNassauModal(context, controller),
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.calculate_outlined,
-                            size: 20,
-                            color: colorScheme.primary,
-                          ),
-                          tooltip: 'WHS Differential & ESC',
-                          onPressed: () => _openHandicapDifferential(context),
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.monetization_on_outlined,
-                            size: 20,
-                            color: colorScheme.secondary,
-                          ),
-                          tooltip: 'Tournament Skins Pot',
-                          onPressed: () => _openSkinsPot(context),
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.pets_outlined,
-                            size: 20,
-                            color: colorScheme.tertiary,
-                          ),
-                          tooltip: 'Wolf Game Mode',
-                          onPressed: () => _openWolfGame(context),
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.auto_graph_rounded,
-                            size: 20,
-                            color: colorScheme.primary,
-                          ),
-                          tooltip: 'Club Gapping & Dispersion Radar',
-                          onPressed: () => _openClubGapping(context),
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.share_outlined,
-                            size: 20,
-                            color: colorScheme.onSurfaceVariant,
-                          ),
-                          tooltip: 'Share Scorecard',
-                          onPressed: () => _openShareSheet(context, controller),
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.leaderboard_outlined,
-                            size: 20,
-                            color: colorScheme.primary,
-                          ),
-                          tooltip: 'Live Leaderboard',
-                          onPressed: () =>
-                              _scaffoldKey.currentState?.openEndDrawer(),
-                        ),
-                      ],
+                      ),
                     ),
                   ],
                 ),

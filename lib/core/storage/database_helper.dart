@@ -15,9 +15,27 @@ class DatabaseHelper {
   DatabaseHelper._init();
 
   Future<Database> get database async {
-    if (_database != null) return _database!;
+    if (_database != null && _database!.isOpen) return _database!;
     _database = await _initDB(AppConstants.dbName);
     return _database!;
+  }
+
+  Future<void> close() async {
+    if (_database != null) {
+      if (_database!.isOpen) {
+        await _database!.close();
+      }
+      _database = null;
+    }
+  }
+
+  static Future<void> resetForTesting() async {
+    if (_database != null) {
+      if (_database!.isOpen) {
+        await _database!.close();
+      }
+      _database = null;
+    }
   }
 
   Future<Database> _initDB(String filePath) async {

@@ -82,27 +82,31 @@ class HoleStepperCockpit extends StatelessWidget {
                 onPressed: currentHoleIndex > 0 ? onPrev : null,
                 color: colorScheme.onSurface,
               ),
-              Column(
-                children: [
-                  Text(
-                    'HOLE ${hole.holeNumber}',
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: 1.2,
-                      color: colorScheme.onSurface,
+              Expanded(
+                child: Column(
+                  children: [
+                    Text(
+                      'HOLE ${hole.holeNumber}',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 1.2,
+                        color: colorScheme.onSurface,
+                      ),
                     ),
-                  ),
-                  Text(
-                    'PAR ${hole.par}  •  ${hole.yardageForTee(teeBox)} YDS  •  STROKE INDEX ${hole.strokeIndex}',
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 0.5,
-                      color: colorScheme.secondary,
+                    Text(
+                      'PAR ${hole.par}  •  ${hole.yardageForTee(teeBox)} YDS  •  STROKE INDEX ${hole.strokeIndex}',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 0.5,
+                        color: colorScheme.secondary,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               IconButton(
                 icon: const Icon(Icons.arrow_forward_ios_rounded, size: 16),

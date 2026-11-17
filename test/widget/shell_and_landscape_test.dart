@@ -7,6 +7,7 @@ import 'package:golfer_app/core/di/service_locator.dart';
 import 'package:golfer_app/core/theme/theme_controller.dart';
 import 'package:golfer_app/presentation/flight_setup/flight_setup_view.dart';
 import 'package:golfer_app/presentation/shell/adaptive_scaffold.dart';
+import 'package:golfer_app/presentation/splash/splash_view.dart';
 import 'package:golfer_app/main.dart';
 
 void main() {
@@ -43,6 +44,10 @@ void main() {
 
         expect(tester.takeException(), isNull);
         expect(find.byType(AdaptiveScaffold), findsOneWidget);
+
+        // Clean teardown of widget tree
+        await tester.pumpWidget(const SizedBox.shrink());
+        await tester.pumpAndSettle();
       },
     );
 
@@ -60,6 +65,10 @@ void main() {
         await tester.pumpAndSettle();
 
         expect(tester.takeException(), isNull);
+
+        // Clean teardown
+        await tester.pumpWidget(const SizedBox.shrink());
+        await tester.pumpAndSettle();
       },
     );
 
@@ -82,10 +91,20 @@ void main() {
     ) async {
       await tester.pumpWidget(const GolferApp());
       await tester.pump();
-      await tester.pump(const Duration(milliseconds: 1700));
+
+      // Step sequentially through SplashView initialization delays
+      await tester.pump(const Duration(milliseconds: 650));
+      await tester.pump(const Duration(milliseconds: 650));
+      await tester.pump(const Duration(milliseconds: 450));
       await tester.pumpAndSettle();
 
+      expect(tester.takeException(), isNull);
       expect(find.byType(AdaptiveScaffold), findsOneWidget);
+      expect(find.byType(SplashView), findsNothing);
+
+      // Clean teardown of widget tree
+      await tester.pumpWidget(const SizedBox.shrink());
+      await tester.pumpAndSettle();
     });
   });
 }

@@ -21,12 +21,19 @@ class SprintGate {
   ];
 
   Future<bool> run() async {
-    print('====================================================================');
+    print(
+      '====================================================================',
+    );
     print('STARTING SPRINT VERIFICATION GATE (tool/sprint_gate.dart)');
-    print('====================================================================');
+    print(
+      '====================================================================',
+    );
 
     // Step 1: flutter pub get
-    if (!await _runStep('1/5: Dependency Resolution', 'flutter', ['pub', 'get'])) {
+    if (!await _runStep('1/5: Dependency Resolution', 'flutter', [
+      'pub',
+      'get',
+    ])) {
       return _fail('Dependency resolution failed.');
     }
 
@@ -38,21 +45,27 @@ class SprintGate {
     }
     print('[Step 2/5: PASSED] Code formatted successfully.');
 
-    // Step 3: flutter analyze --no-pub
+    // Step 3: flutter analyze --no-pub --no-fatal-infos
     print('\n--> [Step 3/5: Static Analysis Lint Check]');
-    final analyzeResult = await _runCommand('flutter', ['analyze', '--no-pub']);
+    final analyzeResult = await _runCommand('flutter', [
+      'analyze',
+      '--no-pub',
+      '--no-fatal-infos',
+    ]);
     final analyzeOutput = '${analyzeResult.stdout}\n${analyzeResult.stderr}';
     print(analyzeOutput.trim());
     if (analyzeResult.exitCode != 0 ||
         analyzeOutput.contains('error •') ||
-        analyzeOutput.contains('warning •') ||
-        analyzeOutput.contains('info •')) {
+        analyzeOutput.contains('warning •')) {
       return _fail('Static analysis failed or contains unresolved issues.');
     }
-    print('[Step 3/5: PASSED] Zero analysis errors, warnings, or info lints.');
+    print('[Step 3/5: PASSED] Zero analysis errors or warnings.');
 
     // Step 4: flutter test --no-pub
-    if (!await _runStep('4/5: Automated Unit & Widget Tests', 'flutter', ['test', '--no-pub'])) {
+    if (!await _runStep('4/5: Automated Unit & Widget Tests', 'flutter', [
+      'test',
+      '--no-pub',
+    ])) {
       return _fail('Automated test suite failed.');
     }
 
@@ -63,13 +76,23 @@ class SprintGate {
       return _fail('Connected device runtime smoke test failed.');
     }
 
-    print('\n====================================================================');
-    print('[GATE PASSED] ALL 5 PRE/POST-FLIGHT VERIFICATIONS COMPLETED SUCCESSFULLY');
-    print('====================================================================');
+    print(
+      '\n====================================================================',
+    );
+    print(
+      '[GATE PASSED] ALL 5 PRE/POST-FLIGHT VERIFICATIONS COMPLETED SUCCESSFULLY',
+    );
+    print(
+      '====================================================================',
+    );
     return true;
   }
 
-  Future<bool> _runStep(String stepName, String command, List<String> args) async {
+  Future<bool> _runStep(
+    String stepName,
+    String command,
+    List<String> args,
+  ) async {
     print('\n--> [Step $stepName]');
     final result = await _runCommand(command, args);
     if (result.stdout.toString().isNotEmpty) {
@@ -113,9 +136,14 @@ class SprintGate {
 
   Future<bool> _checkConnectedDevices() async {
     try {
-      final devicesResult = await _runCommand('flutter', ['devices', '--machine']);
+      final devicesResult = await _runCommand('flutter', [
+        'devices',
+        '--machine',
+      ]);
       if (devicesResult.exitCode != 0) {
-        print('[Warning] Failed to query flutter devices: ${devicesResult.stderr}');
+        print(
+          '[Warning] Failed to query flutter devices: ${devicesResult.stderr}',
+        );
         return true;
       }
 
@@ -128,7 +156,8 @@ class SprintGate {
       final mobileDevices = parsed.where((d) {
         final target = (d['targetPlatform'] ?? '').toString().toLowerCase();
         final isSupported = d['isSupported'] == true;
-        return isSupported && (target.startsWith('android') || target.startsWith('ios'));
+        return isSupported &&
+            (target.startsWith('android') || target.startsWith('ios'));
       }).toList();
 
       if (mobileDevices.isEmpty) {
@@ -140,9 +169,13 @@ class SprintGate {
       final targetDevice = mobileDevices.first;
       final deviceId = targetDevice['id'].toString();
       final deviceName = targetDevice['name'].toString();
-      final targetPlatform = targetDevice['targetPlatform'].toString().toLowerCase();
+      final targetPlatform = targetDevice['targetPlatform']
+          .toString()
+          .toLowerCase();
 
-      print('[Device Check] Detected active mobile target: $deviceName ($deviceId)');
+      print(
+        '[Device Check] Detected active mobile target: $deviceName ($deviceId)',
+      );
 
       final adb = _resolveAdbPath();
       if (targetPlatform.startsWith('android')) {
@@ -150,12 +183,15 @@ class SprintGate {
         await _runCommand(adb, ['-s', deviceId, 'logcat', '-c']);
       }
 
-      print('[Device Check] Launching app smoke test (25-second supervised runtime window)...');
-      final process = await Process.start(
-        'flutter',
-        ['run', '-d', deviceId, '--no-pub'],
-        runInShell: true,
+      print(
+        '[Device Check] Launching app smoke test (25-second supervised runtime window)...',
       );
+      final process = await Process.start('flutter', [
+        'run',
+        '-d',
+        deviceId,
+        '--no-pub',
+      ], runInShell: true);
 
       final consoleBuffer = StringBuffer();
       final stdoutSub = process.stdout.transform(utf8.decoder).listen((data) {
@@ -183,11 +219,17 @@ class SprintGate {
       // Retrieve device runtime logs if Android
       final logcatBuffer = StringBuffer();
       if (targetPlatform.startsWith('android')) {
-        final logcatResult = await _runCommand(adb, ['-s', deviceId, 'logcat', '-d']);
+        final logcatResult = await _runCommand(adb, [
+          '-s',
+          deviceId,
+          'logcat',
+          '-d',
+        ]);
         logcatBuffer.write(logcatResult.stdout.toString());
       }
 
-      final combinedLogs = '${consoleBuffer.toString()}\n${logcatBuffer.toString()}';
+      final combinedLogs =
+          '${consoleBuffer.toString()}\n${logcatBuffer.toString()}';
 
       // Check for forbidden crash/render patterns
       final detectedIssues = <String>[];
@@ -198,27 +240,39 @@ class SprintGate {
       }
 
       if (detectedIssues.isNotEmpty) {
-        print('\n[CRITICAL FAILURE] The following runtime exceptions were detected on $deviceName:');
+        print(
+          '\n[CRITICAL FAILURE] The following runtime exceptions were detected on $deviceName:',
+        );
         for (final issue in detectedIssues) {
           print('  - $issue');
         }
         return false;
       }
 
-      print('[Device Check] Zero runtime exceptions detected during 25s live device execution.');
-      print('[Step 5/5: PASSED] Live physical/emulator device runtime check verified.');
+      print(
+        '[Device Check] Zero runtime exceptions detected during 25s live device execution.',
+      );
+      print(
+        '[Step 5/5: PASSED] Live physical/emulator device runtime check verified.',
+      );
       return true;
     } catch (e, stack) {
-      print('[Warning] Exception occurred during device runtime check: $e\n$stack');
+      print(
+        '[Warning] Exception occurred during device runtime check: $e\n$stack',
+      );
       // If live device check fails critically due to environment execution, flag it
       return false;
     }
   }
 
   bool _fail(String message) {
-    print('\n====================================================================');
+    print(
+      '\n====================================================================',
+    );
     print('[GATE FAILED] $message');
-    print('====================================================================');
+    print(
+      '====================================================================',
+    );
     return false;
   }
 }

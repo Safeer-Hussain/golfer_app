@@ -11,6 +11,7 @@ import '../../data/repositories/flight_repository.dart';
 import '../../data/repositories/scorecard_repository.dart';
 import '../../domain/usecases/caddie_strategy_usecase.dart';
 import '../../domain/usecases/calculate_score_usecase.dart';
+import '../../domain/usecases/club_gapping_usecase.dart';
 import '../../domain/usecases/green_reading_usecase.dart';
 import '../../domain/usecases/handicap_differential_usecase.dart';
 import '../../domain/usecases/nassau_calculator_usecase.dart';
@@ -18,6 +19,7 @@ import '../../domain/usecases/skins_pot_usecase.dart';
 import '../../domain/usecases/swing_tempo_usecase.dart';
 import '../../domain/usecases/wolf_game_usecase.dart';
 import '../../presentation/ai_caddie/ai_caddie_controller.dart';
+import '../../presentation/club_gapping/club_gapping_controller.dart';
 import '../../presentation/clubhouse_analytics/clubhouse_controller.dart';
 import '../../presentation/flight_setup/flight_setup_controller.dart';
 import '../../presentation/green_reading/green_reading_controller.dart';
@@ -73,6 +75,7 @@ Future<void> setupServiceLocator({SharedPreferences? mockPrefs}) async {
   );
   sl.registerSingleton<SkinsPotUseCase>(SkinsPotUseCase());
   sl.registerSingleton<WolfGameUseCase>(WolfGameUseCase());
+  sl.registerSingleton<ClubGappingUseCase>(ClubGappingUseCase());
 
   // Controllers
   sl.registerSingleton<ThemeController>(
@@ -140,6 +143,13 @@ Future<void> setupServiceLocator({SharedPreferences? mockPrefs}) async {
 
   sl.registerSingleton<WolfGameController>(
     WolfGameController(sl<WolfGameUseCase>(), sl<ScorecardController>()),
+  );
+
+  sl.registerSingleton<ClubGappingController>(
+    ClubGappingController(
+      useCase: sl<ClubGappingUseCase>(),
+      bagRepository: sl<ClubBagRepository>(),
+    ),
   );
 
   sl.registerSingleton<SettingsController>(

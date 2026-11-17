@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/di/service_locator.dart';
+import '../club_gapping/club_gapping_view.dart';
 import '../green_reading/green_reading_view.dart';
 import '../handicap_differential/handicap_differential_view.dart';
 import '../skins_pot/skins_pot_view.dart';
@@ -71,6 +72,11 @@ class _ScorecardViewState extends State<ScorecardView> {
   void _openWolfGame(BuildContext context) {
     Navigator.of(context)
         .push(MaterialPageRoute<void>(builder: (_) => const WolfGameView()));
+  }
+
+  void _openClubGapping(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute<void>(builder: (_) => const ClubGappingView()));
   }
 
   Widget _buildCockpitPane(
@@ -329,6 +335,15 @@ class _ScorecardViewState extends State<ScorecardView> {
                           ),
                           tooltip: 'Wolf Game Mode',
                           onPressed: () => _openWolfGame(context),
+                        ),
+                        IconButton(
+                          icon: Icon(
+                            Icons.auto_graph_rounded,
+                            size: 20,
+                            color: colorScheme.primary,
+                          ),
+                          tooltip: 'Club Gapping & Dispersion Radar',
+                          onPressed: () => _openClubGapping(context),
                         ),
                         IconButton(
                           icon: Icon(

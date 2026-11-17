@@ -4,6 +4,7 @@ import '../../core/constants/app_constants.dart';
 import '../../core/di/service_locator.dart';
 import '../../core/theme/theme_controller.dart';
 import '../../core/utils/app_feedback.dart';
+import '../club_gapping/club_gapping_view.dart';
 import '../green_reading/green_reading_view.dart';
 import '../handicap_differential/handicap_differential_view.dart';
 import '../shell/recruiter_debug_drawer.dart';
@@ -305,6 +306,39 @@ class SettingsView extends StatelessWidget {
                         Navigator.of(context).push(
                           MaterialPageRoute<void>(
                             builder: (_) => const WolfGameView(),
+                          ),
+                        );
+                      },
+                    ),
+                    const Divider(height: 1),
+                    ListTile(
+                      leading: Icon(
+                        Icons.auto_graph_rounded,
+                        color: colorScheme.primary,
+                      ),
+                      title: Text(
+                        'Club Gapping & Dispersion Radar',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: colorScheme.onSurface,
+                        ),
+                      ),
+                      subtitle: Text(
+                        '14-club distance gap progression, overlap alerts & shot dispersion radar',
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                      trailing: const Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 14,
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute<void>(
+                            builder: (_) => const ClubGappingView(),
                           ),
                         );
                       },

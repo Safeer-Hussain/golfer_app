@@ -26,9 +26,9 @@ This backlog defines 25 granular daily engineering sprints for autonomous progre
   - 4-player rotational Wolf format tracker: Blind Wolf calls, Lone Wolf scoring, partner pick timers, and zero-sum point leaderboards.
   - Tests: `test/unit/wolf_game_test.dart`, `test/widget/wolf_game_view_test.dart`.
 
-- [ ] **Sprint 7: Club Gapping Matrix & Distance Dispersion Radar**
+- [x] **Sprint 7: Club Gapping Matrix & Distance Dispersion Radar**
   - Interactive visual distance gapping table highlighting yardage overlaps or >15-yard gaps between consecutive clubs in the player's 14-club bag.
-  - Tests: `test/unit/club_gapping_test.dart`.
+  - Tests: `test/unit/club_gapping_test.dart`, `test/widget/club_gapping_view_test.dart`.
 
 - [ ] **Sprint 8: Wind Vector Compass HUD & True Crosswind Resolver**
   - Real-time compass rose resolving current hole heading against live atmospheric wind degrees, displaying headwind, tailwind, and lateral crosswind knots.

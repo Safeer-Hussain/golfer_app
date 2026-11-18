@@ -29,6 +29,9 @@ class ClubhouseController extends ChangeNotifier {
     try {
       _posts = await _clubhouseRepository.getPosts();
       _clubs = await _clubBagRepository.getClubs();
+    } catch (_) {
+      _posts = [];
+      _clubs = List<ClubModel>.from(ClubModel.default14Clubs);
     } finally {
       _isLoading = false;
       notifyListeners();

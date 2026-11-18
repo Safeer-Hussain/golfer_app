@@ -52,7 +52,9 @@ class AiCaddieController extends ChangeNotifier {
   String get teeBox => _teeBox;
 
   Future<void> _init() async {
-    _clubs = await _clubBagRepository.getClubs();
+    try {
+      _clubs = await _clubBagRepository.getClubs();
+    } catch (_) {}
     _seedInitialGreeting();
   }
 

@@ -10,7 +10,11 @@ class ClubhouseRepository {
   ClubhouseRepository(this._db);
 
   Future<List<SocialPostModel>> getPosts() async {
-    return await _db.getSocialPosts();
+    try {
+      return await _db.getSocialPosts();
+    } catch (_) {
+      return [];
+    }
   }
 
   Future<void> createPost({

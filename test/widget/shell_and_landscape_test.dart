@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:golfer_app/core/di/service_locator.dart';
+import 'package:golfer_app/core/storage/database_helper.dart';
 import 'package:golfer_app/core/theme/theme_controller.dart';
 import 'package:golfer_app/presentation/flight_setup/flight_setup_view.dart';
 import 'package:golfer_app/presentation/shell/adaptive_scaffold.dart';
@@ -33,6 +34,10 @@ void main() {
   setUp(() async {
     SharedPreferences.setMockInitialValues({});
     await setupServiceLocator();
+  });
+
+  tearDown(() async {
+    await DatabaseHelper.resetForTesting();
   });
 
   group('Widget & Viewport Tests', () {

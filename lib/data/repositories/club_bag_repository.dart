@@ -7,7 +7,11 @@ class ClubBagRepository {
   ClubBagRepository(this._db);
 
   Future<List<ClubModel>> getClubs() async {
-    return await _db.getClubBag();
+    try {
+      return await _db.getClubBag();
+    } catch (_) {
+      return ClubModel.default14Clubs;
+    }
   }
 
   Future<void> updateClub(ClubModel club) async {

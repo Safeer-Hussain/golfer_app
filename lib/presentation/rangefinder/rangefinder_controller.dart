@@ -41,8 +41,10 @@ class RangefinderController extends ChangeNotifier {
   String get unitSystem => _prefs.getUnitSystem();
 
   Future<void> _loadClubs() async {
-    _availableClubs = await _clubBagRepository.getClubs();
-    notifyListeners();
+    try {
+      _availableClubs = await _clubBagRepository.getClubs();
+      notifyListeners();
+    } catch (_) {}
   }
 
   void syncWithHole(CourseEntity course, int holeIndex, String teeBox) {

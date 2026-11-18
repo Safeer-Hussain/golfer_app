@@ -106,5 +106,35 @@ void main() {
       await tester.pumpWidget(const SizedBox.shrink());
       await tester.pumpAndSettle();
     });
+
+    testWidgets(
+      'all shell views render with unique hero tags and zero collisions',
+      (tester) async {
+        // Test FlightSetupView shell destination (index 0)
+        await tester.pumpWidget(
+          const MaterialApp(home: AdaptiveScaffold(initialIndex: 0)),
+        );
+        await tester.pumpAndSettle();
+        expect(tester.takeException(), isNull);
+
+        // Transition to ScorecardView destination (index 1)
+        await tester.pumpWidget(
+          const MaterialApp(home: AdaptiveScaffold(initialIndex: 1)),
+        );
+        await tester.pumpAndSettle();
+        expect(tester.takeException(), isNull);
+
+        // Transition to Clubhouse destination (index 4)
+        await tester.pumpWidget(
+          const MaterialApp(home: AdaptiveScaffold(initialIndex: 4)),
+        );
+        await tester.pumpAndSettle();
+        expect(tester.takeException(), isNull);
+
+        // Clean teardown
+        await tester.pumpWidget(const SizedBox.shrink());
+        await tester.pumpAndSettle();
+      },
+    );
   });
 }

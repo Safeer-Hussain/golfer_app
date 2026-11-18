@@ -2,7 +2,7 @@ name: golfer_app
 description: "Golfer - Interactive Multi-Player Golf Flight Manager, Automated Digital Scorecard, GPS Rangefinder, and AI Caddie."
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 1.0.1+2
 
 environment:
   sdk: ^3.13.7

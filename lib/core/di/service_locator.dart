@@ -9,6 +9,7 @@ import '../../data/repositories/club_bag_repository.dart';
 import '../../data/repositories/clubhouse_repository.dart';
 import '../../data/repositories/flight_repository.dart';
 import '../../data/repositories/scorecard_repository.dart';
+import '../../data/repositories/wind_compass_repository.dart';
 import '../../domain/usecases/caddie_strategy_usecase.dart';
 import '../../domain/usecases/calculate_score_usecase.dart';
 import '../../domain/usecases/club_gapping_usecase.dart';
@@ -17,6 +18,7 @@ import '../../domain/usecases/handicap_differential_usecase.dart';
 import '../../domain/usecases/nassau_calculator_usecase.dart';
 import '../../domain/usecases/skins_pot_usecase.dart';
 import '../../domain/usecases/swing_tempo_usecase.dart';
+import '../../domain/usecases/wind_compass_usecase.dart';
 import '../../domain/usecases/wolf_game_usecase.dart';
 import '../../presentation/ai_caddie/ai_caddie_controller.dart';
 import '../../presentation/club_gapping/club_gapping_controller.dart';
@@ -29,6 +31,7 @@ import '../../presentation/scorecard/scorecard_controller.dart';
 import '../../presentation/settings/settings_controller.dart';
 import '../../presentation/skins_pot/skins_pot_controller.dart';
 import '../../presentation/swing_tempo/swing_tempo_controller.dart';
+import '../../presentation/wind_compass/wind_compass_controller.dart';
 import '../../presentation/wolf_game/wolf_game_controller.dart';
 
 final GetIt sl = GetIt.instance;
@@ -63,6 +66,9 @@ Future<void> setupServiceLocator({SharedPreferences? mockPrefs}) async {
   sl.registerSingleton<ClubhouseRepository>(
     ClubhouseRepository(sl<DatabaseHelper>()),
   );
+  sl.registerSingleton<WindCompassRepository>(
+    WindCompassRepository(sl<DatabaseHelper>()),
+  );
 
   // Use Cases
   sl.registerSingleton<CalculateScoreUseCase>(CalculateScoreUseCase());
@@ -76,6 +82,7 @@ Future<void> setupServiceLocator({SharedPreferences? mockPrefs}) async {
   sl.registerSingleton<SkinsPotUseCase>(SkinsPotUseCase());
   sl.registerSingleton<WolfGameUseCase>(WolfGameUseCase());
   sl.registerSingleton<ClubGappingUseCase>(ClubGappingUseCase());
+  sl.registerSingleton<WindCompassUseCase>(WindCompassUseCase());
 
   // Controllers
   sl.registerSingleton<ThemeController>(
@@ -149,6 +156,13 @@ Future<void> setupServiceLocator({SharedPreferences? mockPrefs}) async {
     ClubGappingController(
       useCase: sl<ClubGappingUseCase>(),
       bagRepository: sl<ClubBagRepository>(),
+    ),
+  );
+
+  sl.registerSingleton<WindCompassController>(
+    WindCompassController(
+      useCase: sl<WindCompassUseCase>(),
+      repository: sl<WindCompassRepository>(),
     ),
   );
 

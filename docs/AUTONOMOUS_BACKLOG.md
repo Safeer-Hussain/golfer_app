@@ -30,9 +30,9 @@ This backlog defines 25 granular daily engineering sprints for autonomous progre
   - Interactive visual distance gapping table highlighting yardage overlaps or >15-yard gaps between consecutive clubs in the player's 14-club bag.
   - Tests: `test/unit/club_gapping_test.dart`, `test/widget/club_gapping_view_test.dart`.
 
-- [ ] **Sprint 8: Wind Vector Compass HUD & True Crosswind Resolver**
+- [x] **Sprint 8: Wind Vector Compass HUD & True Crosswind Resolver**
   - Real-time compass rose resolving current hole heading against live atmospheric wind degrees, displaying headwind, tailwind, and lateral crosswind knots.
-  - Tests: `test/unit/wind_compass_test.dart`.
+  - Tests: `test/unit/wind_compass_test.dart`, `test/widget/wind_compass_view_test.dart`.
 
 - [ ] **Sprint 9: Stableford Quota Tournament Flight Engine**
   - Point quota game mode (36 minus player handicap index) with real-time +/- quota deficit indicators during round.

@@ -1,6 +1,6 @@
 class AppConstants {
   static const String appName = 'Golfer';
-  static const String appVersion = '1.0.0+1';
+  static const String appVersion = '1.0.1+2';
   static const String appSubheading =
       'Championship Multi-Player Flight & AI Caddie';
 

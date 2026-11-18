@@ -11,6 +11,7 @@ import '../../data/models/social_post_model.dart';
 class DatabaseHelper {
   static final DatabaseHelper instance = DatabaseHelper._init();
   static Database? _database;
+  static bool _isWindTableEnsured = false;
 
   DatabaseHelper._init();
 
@@ -30,6 +31,7 @@ class DatabaseHelper {
   }
 
   static Future<void> resetForTesting() async {
+    _isWindTableEnsured = false;
     if (_database != null) {
       if (_database!.isOpen) {
         await _database!.close();
@@ -51,6 +53,9 @@ class DatabaseHelper {
       path,
       version: AppConstants.dbVersion,
       onCreate: _createDB,
+      onOpen: (db) async {
+        await _ensureWindCompassTable(db);
+      },
     );
   }
 
@@ -112,6 +117,8 @@ class DatabaseHelper {
         timestamp TEXT
       )
     ''');
+
+    await _ensureWindCompassTable(db);
 
     // Seed initial clubs
     final batch = db.batch();
@@ -330,5 +337,50 @@ class DatabaseHelper {
       [comment.postId],
     );
     return res;
+  }
+
+  // Wind Compass Offline Logs
+  Future<void> _ensureWindCompassTable(Database db) async {
+    if (_isWindTableEnsured) return;
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS wind_compass_logs (
+        id TEXT PRIMARY KEY,
+        timestamp TEXT,
+        hole_heading REAL,
+        wind_direction REAL,
+        wind_speed_knots REAL,
+        gust_knots REAL,
+        shot_distance_yards REAL,
+        headwind_knots REAL,
+        crosswind_knots REAL,
+        play_as_yards REAL,
+        lateral_drift_yards REAL,
+        recommendation TEXT
+      )
+    ''');
+    _isWindTableEnsured = true;
+  }
+
+  Future<int> insertWindLog(Map<String, dynamic> data) async {
+    final db = await database;
+    return await db.insert(
+      'wind_compass_logs',
+      data,
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<List<Map<String, dynamic>>> getWindLogs() async {
+    final db = await database;
+    return await db.query(
+      'wind_compass_logs',
+      orderBy: 'timestamp DESC',
+      limit: 30,
+    );
+  }
+
+  Future<int> clearWindLogs() async {
+    final db = await database;
+    return await db.delete('wind_compass_logs');
   }
 }

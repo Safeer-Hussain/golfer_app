@@ -8,6 +8,7 @@ import 'rangefinder_controller.dart';
 import 'widgets/gps_crosshair_card.dart';
 import 'widgets/shot_tracker_modal.dart';
 import 'widgets/wind_elevation_badge.dart';
+import '../wind_compass/wind_compass_view.dart';
 
 class RangefinderView extends StatefulWidget {
   const RangefinderView({super.key});
@@ -182,10 +183,20 @@ class _RangefinderViewState extends State<RangefinderView> {
                   ),
                 ),
               ),
-              WindElevationBadge(
-                windDirection: hole.windDirection,
-                windSpeedMph: hole.windSpeedMph,
-                elevationFeet: hole.elevationChangeFeet,
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => const WindCompassView(),
+                    ),
+                  );
+                },
+                borderRadius: BorderRadius.circular(10),
+                child: WindElevationBadge(
+                  windDirection: hole.windDirection,
+                  windSpeedMph: hole.windSpeedMph,
+                  elevationFeet: hole.elevationChangeFeet,
+                ),
               ),
             ],
           ),

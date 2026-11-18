@@ -6,6 +6,7 @@ import '../green_reading/green_reading_view.dart';
 import '../handicap_differential/handicap_differential_view.dart';
 import '../skins_pot/skins_pot_view.dart';
 import '../swing_tempo/swing_tempo_view.dart';
+import '../wind_compass/wind_compass_view.dart';
 import '../wolf_game/wolf_game_view.dart';
 import 'scorecard_controller.dart';
 import 'widgets/hole_stepper_cockpit.dart';
@@ -77,6 +78,11 @@ class _ScorecardViewState extends State<ScorecardView> {
   void _openClubGapping(BuildContext context) {
     Navigator.of(context)
         .push(MaterialPageRoute<void>(builder: (_) => const ClubGappingView()));
+  }
+
+  void _openWindCompass(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute<void>(builder: (_) => const WindCompassView()));
   }
 
   Widget _buildCockpitPane(
@@ -349,6 +355,15 @@ class _ScorecardViewState extends State<ScorecardView> {
                               ),
                               tooltip: 'Club Gapping & Dispersion Radar',
                               onPressed: () => _openClubGapping(context),
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                Icons.explore_rounded,
+                                size: 20,
+                                color: colorScheme.secondary,
+                              ),
+                              tooltip: 'Wind Vector Compass HUD',
+                              onPressed: () => _openWindCompass(context),
                             ),
                             IconButton(
                               icon: Icon(
